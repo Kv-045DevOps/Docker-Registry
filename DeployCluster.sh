@@ -8,7 +8,7 @@ cat <<__EOF__>>~/cluster.yaml
   fileAssets:
     - content: |
         {
-            "insecure-registries" : ["100.100.100.100:5000"]
+            "insecure-registries" : ["100.71.71.71:5000"]
         }
       name: insecure-registries
       path: /etc/docker/daemon.json
