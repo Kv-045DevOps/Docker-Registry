@@ -30,10 +30,8 @@ spec:
           value: /auth/htpasswd
       volumes:
       - name: images
-        hostPath:
-          path: /root/registry/images
+        persistentVolumeClaim:
+          claimName:images-pv-claim
       - name: auth
-        hostPath:
-          path: /root/registry/auth
-      nodeSelector:
-        name: vmi74448
+        persistentVolumeClaim:
+          claimName:auth-pv-claim
