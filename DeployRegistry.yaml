@@ -19,19 +19,19 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/registry
           name: images
-        - mountPath: /auth
-          name: auth
-        env:
-        - name: REGISTRY_AUTH
-          value: "htpasswd"
-        - name: REGISTRY_AUTH_HTPASSWD_REALM
-          value: "Registry Realm"
-        - name: REGISTRY_AUTH_HTPASSWD_PATH
-          value: /auth/htpasswd
       volumes:
       - name: images
         persistentVolumeClaim:
-          claimName:images-pv-claim
-      - name: auth
-        persistentVolumeClaim:
-          claimName:auth-pv-claim
+          claimName:registry-pv-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: registry-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
