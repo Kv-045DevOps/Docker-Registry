@@ -37,7 +37,7 @@ spec:
       volumes:
       - name: images
         persistentVolumeClaim:
-          claimName:registry-pv-claim
+          claimName: registry-pv-claim
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
