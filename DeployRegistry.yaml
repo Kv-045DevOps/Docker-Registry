@@ -47,7 +47,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: registry-pv-claim
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
