@@ -1,10 +1,10 @@
 #!/bin/bash
-export NAME=firstclusterkub.k8s.local
-export KOPS_STATE_STORE=s3://kv045kops
-kops create cluster --zones eu-central-1a ${NAME} --master-size=t2.micro --node-size=t2.micro --master-volume-size=8 --node-volume-size=8
+export NAME=kubern.cluster.k8s.local
+export KOPS_STATE_STORE=s3://crm-system-k8s
+kops create cluster --zones eu-west-1a ${NAME} --master-size=t2.small --node-size=t2.small --node-count=3 --master-volume-size=8 --node-volume-size=8
 sleep 10
 kops get cluster --name ${NAME} -oyaml > cluster.yaml
-cat <<__EOF__>>~/cluster.yaml
+cat <<__EOF__>> cluster.yaml
   fileAssets:
     - content: |
         {
