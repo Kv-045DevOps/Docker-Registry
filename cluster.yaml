@@ -1,7 +1,7 @@
 apiVersion: kops/v1alpha2
 kind: Cluster
 metadata:
-  creationTimestamp: 2019-01-22T16:42:18Z
+  creationTimestamp: 2019-02-12T15:37:21Z
   name: kubern.cluster.k8s.local
 spec:
   api:
