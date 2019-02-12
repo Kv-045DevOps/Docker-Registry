@@ -36,26 +36,26 @@ node(label)
         stage("Deploy to Kubernetes"){
             if(params.service == "db"){
 		container ("helm"){
-		    sh "helm upgrade --install --namespace production --force db-service ${pathTocodeget}/List-Helm-Charts/db-service --set=deploy.version=v1,image.tag=${params.imageTagDB_}"
+		    sh "helm upgrade --install --namespace production --force db-service ${pathTocodeget}/List-Helm-Charts/db-service --set=deploy.version=v1,conf.ver=v1,image.tag=${params.imageTagDB_}"
 			
 	    }
 	    }
             if(params.service == "get"){
 		container ("helm"){
-		    sh "helm upgrade --install --namespace production --force get-service ${pathTocodeget}/List-Helm-Charts/get-service --set=deploy.version=v1,image.tag=${params.imageTagGET_}"
+		    sh "helm upgrade --install --namespace production --force get-service ${pathTocodeget}/List-Helm-Charts/get-service --set=deploy.version=v1,conf.ver=v1,image.tag=${params.imageTagGET_}"
 			
 	    }
 	    }
 	    if(params.service == "ui"){
 		container ("helm"){
-		    sh "helm upgrade --install --namespace production --force ui-service ${pathTocodeget}/List-Helm-Charts/ui-service --set=deploy.version=v1,image.tag=${params.imageTagUI_}"
+		    sh "helm upgrade --install --namespace production --force ui-service ${pathTocodeget}/List-Helm-Charts/ui-service --set=deploy.version=v1,conf.ver=v1,image.tag=${params.imageTagUI_}"
 			
 	    }
 	    }
             
             if(params.service == "post"){
 		container ("helm"){
-		    sh "helm upgrade --install --namespace production --force post-service ${pathTocodeget}/List-Helm-Charts/post-service --set=deploy.version=v1,image.tag=${post}"
+		    sh "helm upgrade --install --namespace production --force post-service ${pathTocodeget}/List-Helm-Charts/post-service --set=deploy.version=v1,conf.ver=v1,image.tag=${post}"
 			
 	    }
 	    }    
