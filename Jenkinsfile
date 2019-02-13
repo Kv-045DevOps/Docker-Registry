@@ -35,28 +35,52 @@ node(label)
         }
         stage("Deploy to Kubernetes"){
             if(params.service == "db"){
-		container ("helm"){
-		    sh "helm upgrade --install --namespace production --force db-service ${pathTocodeget}/List-Helm-Charts/db-service --set=deploy.version=v1,conf.ver=v1,image.tag=${params.imageTagDB_}"
-			
+		    container ("helm"){
+		        check = sh(script: """helm list -c db-service | awk '{ print \$1 }' | grep v1""", returnStdout:true)
+		        echo "${check}"
+		        if (check){
+		            sh "helm upgrade --install --namespace production --force db-service-v2 ${pathTocodeget}/List-Helm-Charts/db-service-bg --set=deploy.version=v2,image.tag=${params.imageTagDB_}"
+                    sh "helm upgrade --install --namespace production --force istio-rules-db ${pathTocodeget}/List-Helm-Charts/istio-rules --set weight.v1=0,--set weight.v2=100, --set app=db-service"}            
+                else{
+                    sh "helm upgrade --install --namespace production --force db-service-v1 ${pathTocodeget}/List-Helm-Charts/db-service --set=deploy.version=v1,image.tag=${params.imageTagDB_}"
+                }			
 	    }
 	    }
             if(params.service == "get"){
 		container ("helm"){
-		    sh "helm upgrade --install --namespace production --force get-service ${pathTocodeget}/List-Helm-Charts/get-service --set=deploy.version=v1,conf.ver=v1,image.tag=${params.imageTagGET_}"
-			
+		        check = sh(script: """helm list -c get-service | awk '{ print \$1 }' | grep v1""", returnStdout:true)
+		        echo "${check}"
+		        if (check){
+		            sh "helm upgrade --install --namespace production --force get-service-v2 ${pathTocodeget}/List-Helm-Charts/get-service-bg --set=deploy.version=v2,image.tag=${params.imageTagGET_}"
+                    sh "helm upgrade --install --namespace production --force istio-rules-get ${pathTocodeget}/List-Helm-Charts/istio-rules --set weight.v1=0 --set weight.v2=100 --set app.name=get"}            
+                else{
+                    sh "helm upgrade --install --namespace production --force get-service-v1 ${pathTocodeget}/List-Helm-Charts/get-service --set=deploy.version=v1,image.tag=${params.imageTagGET_}"
+                }			
 	    }
 	    }
 	    if(params.service == "ui"){
 		container ("helm"){
-		    sh "helm upgrade --install --namespace production --force ui-service ${pathTocodeget}/List-Helm-Charts/ui-service --set=deploy.version=v1,conf.ver=v1,image.tag=${params.imageTagUI_}"
-			
+		        check = sh(script: """helm list -c ui-service | awk '{ print \$1 }' | grep v1""", returnStdout:true)
+		        echo "${check}"
+		        if (check){
+		            sh "helm upgrade --install --namespace production --force ui-service-v2 ${pathTocodeget}/List-Helm-Charts/ui-service-bg --set=deploy.version=v2,image.tag=${params.imageTagUI_}"
+                    sh "helm upgrade --install --namespace production --force istio-rules-ui ${pathTocodeget}/List-Helm-Charts/istio-rules --set weight.v1=0,--set weight.v2=100, --set app.name=ui"}            
+                else{
+                    sh "helm upgrade --install --namespace production --force ui-service-v1 ${pathTocodeget}/List-Helm-Charts/ui-service --set=deploy.version=v1,image.tag=${params.imageTagUI_}"
+                }			
 	    }
 	    }
             
             if(params.service == "post"){
 		container ("helm"){
-		    sh "helm upgrade --install --namespace production --force post-service ${pathTocodeget}/List-Helm-Charts/post-service --set=deploy.version=v1,conf.ver=v1,image.tag=${params.imageTagPOST_}"
-			
+		        check = sh(script: """helm list -c post-service | awk '{ print \$1 }' | grep v1""", returnStdout:true)
+		        echo "${check}"
+		        if (check){
+		            sh "helm upgrade --install --namespace production --force post-service-v2 ${pathTocodeget}/List-Helm-Charts/post-service-bg --set=deploy.version=v2,image.tag=${params.imageTagPOST_}"
+                    sh "helm upgrade --install --namespace production --force istio-rules-post ${pathTocodeget}/List-Helm-Charts/istio-rules --set weight.v1=0,--set weight.v2=100, --set app.name=post"}            
+                else{
+                    sh "helm upgrade --install --namespace production --force post-service-v1 ${pathTocodeget}/List-Helm-Charts/post-service --set=deploy.version=v1,image.tag=${params.imageTagPOST_}"
+                }			
 	    }
 	    }    
         }
