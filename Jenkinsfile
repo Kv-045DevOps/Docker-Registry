@@ -55,7 +55,7 @@ node(label)
             
             if(params.service == "post"){
 		container ("helm"){
-		    sh "helm upgrade --install --namespace production --force post-service ${pathTocodeget}/List-Helm-Charts/post-service --set=deploy.version=v1,conf.ver=v1,image.tag=${post}"
+		    sh "helm upgrade --install --namespace production --force post-service ${pathTocodeget}/List-Helm-Charts/post-service --set=deploy.version=v1,conf.ver=v1,image.tag=${params.imageTagPOST_}"
 			
 	    }
 	    }    
