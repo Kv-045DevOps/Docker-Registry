@@ -48,7 +48,7 @@ node(label)
 	    }
             if(params.service == "get"){
 		container ("helm"){
-		        check = sh(script: """helm list -c get-service | awk '{ print \$1 }' | grep v1""", returnStdout:true)
+		        check = sh(script: """helm list -c get-service | awk '{ print \$1 }' | grep get""", returnStdout:true)
 		        echo "${check}"
 		        if (check){
 		            sh "helm upgrade --install --namespace production --force get-service-v2 ${pathTocodeget}/List-Helm-Charts/get-service-bg --set=deploy.version=v2,image.tag=${params.imageTagGET_}"
