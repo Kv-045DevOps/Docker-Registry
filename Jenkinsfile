@@ -40,7 +40,7 @@ node(label)
 		        echo "${check}"
 		        if (check){
 		            sh "helm upgrade --install --namespace production --force db-service-v2 ${pathTocodeget}/List-Helm-Charts/db-service-bg --set=deploy.version=v2,image.tag=${params.imageTagDB_}"
-                    sh "helm upgrade --install --namespace production --force istio-rules-db ${pathTocodeget}/List-Helm-Charts/istio-rules --set weight.v1=0,--set weight.v2=100, --set app=db-service"}            
+                    sh "helm upgrade --install --namespace production --force istio-rules-db ${pathTocodeget}/List-Helm-Charts/istio-rules --set weight.v1=0 --set weight.v2=100 --set app=db-service"}            
                 else{
                     sh "helm upgrade --install --namespace production --force db-service-v1 ${pathTocodeget}/List-Helm-Charts/db-service --set=deploy.version=v1,image.tag=${params.imageTagDB_}"
                 }			
@@ -64,7 +64,7 @@ node(label)
 		        echo "${check}"
 		        if (check){
 		            sh "helm upgrade --install --namespace production --force ui-service-v2 ${pathTocodeget}/List-Helm-Charts/ui-service-bg --set=deploy.version=v2,image.tag=${params.imageTagUI_}"
-                    sh "helm upgrade --install --namespace production --force istio-rules-ui ${pathTocodeget}/List-Helm-Charts/istio-rules --set weight.v1=0,--set weight.v2=100, --set app.name=ui"}            
+                    sh "helm upgrade --install --namespace production --force istio-rules-ui ${pathTocodeget}/List-Helm-Charts/istio-rules --set weight.v1=0 --set weight.v2=100 --set app.name=ui"}            
                 else{
                     sh "helm upgrade --install --namespace production --force ui-service-v1 ${pathTocodeget}/List-Helm-Charts/ui-service --set=deploy.version=v1,image.tag=${params.imageTagUI_}"
                 }			
@@ -77,7 +77,7 @@ node(label)
 		        echo "${check}"
 		        if (check){
 		            sh "helm upgrade --install --namespace production --force post-service-v2 ${pathTocodeget}/List-Helm-Charts/post-service-bg --set=deploy.version=v2,image.tag=${params.imageTagPOST_}"
-                    sh "helm upgrade --install --namespace production --force istio-rules-post ${pathTocodeget}/List-Helm-Charts/istio-rules --set weight.v1=0,--set weight.v2=100, --set app.name=post"}            
+                    sh "helm upgrade --install --namespace production --force istio-rules-post ${pathTocodeget}/List-Helm-Charts/istio-rules --set weight.v1=0 --set weight.v2=100 --set app.name=post"}            
                 else{
                     sh "helm upgrade --install --namespace production --force post-service-v1 ${pathTocodeget}/List-Helm-Charts/post-service --set=deploy.version=v1,image.tag=${params.imageTagPOST_}"
                 }			
